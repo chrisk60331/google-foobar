@@ -24,13 +24,15 @@ def solution(m):
     bool_indices = list(map(lambda z: z == 0, sum_list))
     indices = set([i for i, y in enumerate(bool_indices) if y])
     new_m = [
-        list(map(
-            lambda x: Fraction(0, 1) if (
-                    sum_list[i] == 0
-            ) else Fraction(
-                x / gcd(x, sum_list[i]),
-                sum_list[i] / gcd(x, sum_list[i])
-            ), m[i])
+        list(
+            map(
+                lambda x: Fraction(0, 1)
+                if (sum_list[i] == 0)
+                else Fraction(
+                    x / gcd(x, sum_list[i]), sum_list[i] / gcd(x, sum_list[i])
+                ),
+                m[i],
+            )
         )
         for i in range(len(m))
     ]
@@ -56,26 +58,11 @@ def solution(m):
     if res[1] == len(m):
         return [1, 1]
     length_q = len(res[0]) - res[1]
-    q = [
-        [int(i == j) - res[0][i][j] for j in range(length_q)]
-        for i in range(length_q)
-    ]
-    r = [
-        res[0][i][length_q:]
-        for i in range(length_q)
-    ]
-    tm = [
-        [q[i][j] for i in range(len(q))]
-        for j in range(len(q))
-    ]
+    q = [[int(i == j) - res[0][i][j] for j in range(length_q)] for i in range(length_q)]
+    r = [res[0][i][length_q:] for i in range(length_q)]
+    tm = [[q[i][j] for i in range(len(q))] for j in range(len(q))]
     inv = [
-        gauss_elimination(
-            tm,
-            [
-                Fraction(int(i == j), 1)
-                for j in range(len(q))
-            ]
-        )
+        gauss_elimination(tm, [Fraction(int(i == j), 1) for j in range(len(q))])
         for i in range(len(tm))
     ]
     res = []
@@ -85,9 +72,7 @@ def solution(m):
             res[i].append(Fraction(0, 1))
             for k in range(len(inv[0])):
                 res[i][j] += inv[i][k] * r[k][j]
-    l = reduce(
-        lambda p, d: p * d.denominator / gcd(p, d.denominator), res[0], 1
-    )
-    res = list(map(lambda x: x.numerator*l/x.denominator, res[0]))
+    l = reduce(lambda p, d: p * d.denominator / gcd(p, d.denominator), res[0], 1)
+    res = list(map(lambda x: x.numerator * l / x.denominator, res[0]))
     res.append(l)
     return res

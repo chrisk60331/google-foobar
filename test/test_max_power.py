@@ -1,6 +1,6 @@
 import pytest
 
-from max_power import *
+from google_foobar.max_power import *
 
 
 @pytest.mark.parametrize(
@@ -8,11 +8,8 @@ from max_power import *
     [
         ([2, 0, 2, 2, 0], "8"),
         ([-2, -3, 4, -5], "60"),
-
         ([-2], "-2"),
         ([-12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "0"),
-
-
         ([2, -3, 1, 0, -5], "30"),
         ([99, -1], "99"),
         ([1, 2, 3, 4, 5, -1, -2], "240"),
