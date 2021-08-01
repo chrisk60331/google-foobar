@@ -1,0 +1,8 @@
+.Python
+*.pclprof
+lib
+include
+bin
+.idea
+__pycache__/
+*.pyc
